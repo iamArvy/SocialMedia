@@ -1,0 +1,29 @@
+{% extends "network/layout.html" %}
+{% block body %}
+    
+
+    {% if user.is_authenticated %}
+    <div class="create my-container">
+        <div class="img-pfp">
+            <div class="pfp-img">
+                <img src="" alt="no img" class="pfp">
+            </div>
+        </div>
+        <div class="createform">
+            <form id="createPostForm">
+                <textarea id="postbox" name="post_text" rows="4" cols="50" class="postbox" required placeholder="What is happening?!"></textarea>
+            </hr>
+                <div class="createbutton">
+                    <input type="button" value="Post" onclick="create('post')">
+                </div>
+            </form>
+        </div>
+    </div>
+    <hr>
+    {% endif %}
+    <div class="content">
+        {% include 'network/my_lister.html' %}
+    </div>
+
+{% endblock %}
+

@@ -1,0 +1,75 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <div class="profile-banner">
+        <img src="{{content.banner.url}}" alt="no img">
+    </div>
+    <div class="pfpf">
+        <div class="profile-picture-container">
+            <img src="{{content.pfp.url}}" alt="Profile Picture">
+        </div>
+        <div class="profile-buttons">
+            {% if user.is_authenticated and user.id != content.id %}
+                <div class="follow" id="follow">
+                        <button onclick="follow('{% if is_follow %}unfollow{% else %}follow{% endif %}')">
+                            {% if is_follow %}
+                                Following
+                            {% else %}
+                                Follow
+                            {% endif %}
+                        </button>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="profile-details">
+        <h1 style="text-transform: capitalize;">{{ content.first_name }} {{ content.last_name }}</h1>
+        <span>@{{ content.username }}</span>
+        <p>{{ content.bio }}</p>
+        <span>Joined {{ content.date_joined.date }}</span>
+        <div>
+            <span id="follow_count">{{ content.followers.count }} Followers</span>
+            <span>{{content.following.count}} following</span>
+        </div>
+    </div>
+    <hr>
+    <div class="create my-container">
+        <div class="createform">
+            <form id="createPostForm">
+                <textarea id="postbox" name="post_text" rows="4" cols="50" class="postbox" required placeholder="What is happening?!"></textarea>
+            </hr>
+                <div class="createbutton">
+                    <input type="button" value="Post" onclick="create('post')">
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="index-view">
+        <!-- {% if user.is_authenticated %}
+            <div class="createpost">
+                <form id="createPostForm">
+                    <label for="postText">Post:</label>
+                    <textarea id="postbox" name="post_text" rows="4" cols="50" required></textarea>
+                    <br>
+                    <input type="button" value="Post" onclick="create()">
+                </form>
+            </div>
+        {% endif %} -->
+        
+            <div class="allpost">
+                {% include 'network/my_lister.html' %}
+            </div>
+    </div>
+    <div class="following-view">
+
+    </div>
+    <div class="profile-view">
+        
+    </div>
+    
+{% endblock %}
+
+{% block styles %}
+    <link href="{% static 'network/profile.css' %}" rel="stylesheet">
+{% endblock %}
